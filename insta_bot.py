@@ -2,14 +2,20 @@ from selenium import webdriver
 import time
 
 class instagram_bot():
-
+    """ A classe recebe como argumentos iniciais:
+     - webdriver selenium já conectado na página inicial do instagram web
+     - o link do post de onde os comentários serão extraídos
+     """
     def __init__(self, driver: webdriver, post_link: str) -> None:
         
         self.driver = driver
         self.post_link = post_link
 
     def login(self, user: str, pass_word: str) -> None:
-
+        """ O método recebe como argumentos:
+         - login: email ou username de uma conta ativa do instagram
+         - senha: senha da conta
+        """
         username= self.driver.find_element_by_css_selector("input[name='username']")
         password= self.driver.find_element_by_css_selector("input[name='password']")
 
@@ -20,7 +26,8 @@ class instagram_bot():
         login = self.driver.find_element_by_css_selector("button[type='submit']").click()
 
     def pass_notif(self)-> None:
-
+        """ Método para fechar as caixas de pop-up de notificações"""
+        
         time.sleep(10)
         notnow = self.driver.find_element_by_xpath("//button[contains(text(), 'Agora não')]").click()
         #turn on notif
@@ -31,6 +38,9 @@ class instagram_bot():
 
     
     def load_more_comment(self, count: int) -> None:
+        """ Método para clickar no botão mais comentários, 
+        recebe como argumentos um limite para o número de clicks, 
+        muito importante para evitar looping infinito"""
         
         i = 0
         load_more = self.driver.find_element_by_class_name("dCJp8.afkep")
@@ -52,7 +62,8 @@ class instagram_bot():
 
                
     def get_comments(self) -> list:
-
+         """ Método para extrair comentários"""
+            
         comments = []
         conteiner = self.driver.find_elements_by_xpath("//div[@class='C4VMK']/span")
 
@@ -64,7 +75,8 @@ class instagram_bot():
         return comments
 
     def get_users(self) -> list:
-
+         """ Método para extrair usuário que fez o comentário"""
+            
         users = []
         conteiner = self.driver.find_elements_by_xpath("//div[@class='C4VMK']/h3")
 
@@ -74,5 +86,5 @@ class instagram_bot():
         return users
 
     def close(self) -> None:
-
+        """ Método para fechar o driver do navegador"""
         self.driver.quit()
