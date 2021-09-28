@@ -5,12 +5,14 @@ import sys
 from pathlib import Path
 from insta_bot import instagram_bot
 
+# Os argumentos são passados via linha de comando
 post_link = sys.argv[1]
 
 data_name = sys.argv[2]
 
 count = int(sys.argv[3])
 
+# caminho da pasta para salvar o arquivo 
 fname = str(Path.cwd() / 'Dados'/ data_name) + '.csv'
 
 options = webdriver.ChromeOptions()
@@ -23,7 +25,7 @@ driver.get("https://www.instagram.com/")
 time.sleep(5)
 bot = instagram_bot(driver, post_link)
 
-bot.login('manoel.cabral1989@gmail.com', 'tobias123')
+bot.login('user@gmail.com', 'user123')
 
 #save your login info?
 time.sleep(5)
