@@ -43,22 +43,18 @@ class instagram_bot():
         muito importante para evitar looping infinito"""
         
         i = 0
-        load_more = self.driver.find_element_by_class_name("dCJp8.afkep")
+        try:
+              load_more = self.driver.find_element_by_class_name("dCJp8.afkep")
         
-        if(load_more):
-
-            try:
-                while load_more.is_displayed() and i < count:
+              while load_more.is_displayed() and i < count:
 
                     load_more.click()
                     time.sleep(3)
                     load_more = self.driver.find_element_by_class_name("dCJp8.afkep")
                     i += 1
-            except Exception as e:
-                print(e)
-                pass
-        else:
-            pass
+        except NoSuchElementException as e:
+              print(e)
+              pass
 
                
     def get_comments(self) -> list:
