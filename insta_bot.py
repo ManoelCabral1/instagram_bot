@@ -83,5 +83,20 @@ class instagram_bot():
         return users
 
     def close(self) -> None:
-        """ Método para fechar o driver do navegador"""
+        """ Método para logout na conta do Instagram e fechar o driver do navegador"""
+         #Barra de navegação 
+        menu = self.driver.find_element_by_class_name('NXc7H.jLuN9')
+
+        #Botão com as opções de conta
+        menu2 = menu.find_element_by_class_name('_47KiJ')
+        menu2.find_element_by_class_name("_2dbep.qNELH").click()
+        
+        time.sleep(2)
+        #Pop up com as opções
+        menu_items = self.driver.find_element_by_class_name('_01UL2')
+        
+        #Click na opção Sair
+        menu_items.find_element_by_xpath("//div[contains(text(), 'Sair')]").click()
+        
+        #Fecha o navegador
         self.driver.quit()
